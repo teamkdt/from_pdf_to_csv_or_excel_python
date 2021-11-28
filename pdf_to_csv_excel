@@ -1,0 +1,48 @@
+import tabula
+import pandas as pd
+import os
+from csv import reader
+import re
+import numpy as np
+
+k = []
+
+with open ('output_2016_b.csv','r') as read_obj:
+    csv_reader = reader(read_obj)
+    for row in csv_reader:
+        k.append(row)
+
+df3 = pd.DataFrame(k, columns = ['AA','CompanyName','NoContracts','percent','E'])
+
+#print(df3['C'][3])
+
+
+new=df3.NoContracts.str.split(pat=None,n=1,expand=True)
+print(new)
+df3['NoContracts']=new[0]
+df3['percent']=new[1]
+
+print("old df3..",df3)
+
+np4 = np.array(df3)
+print(np4)
+
+for i in range(len(np4)):
+    g = np4[i][2].replace(',','.')
+    print(g)
+#print("df3 percent\n",df3['percent'])
+#print(type(df3['percent']))
+#for col_name in df3['percent']:
+    #print("ok")
+    #print(df3[col_name])
+
+
+#print("new df3..",df3)
+
+#for col_name in df3['percent']:
+
+#        df3[col_name] = df3[col_name].map(lambda x: int(x.replace('.', ',')))
+
+#df3.to_excel('output_2016c.xlsx', index=False, encoding='utf-8')
+
+#df3.to_csv('output_2016a.csv', columns=['AA', 'CompanyName', 'NoContracts', 'percent'])
